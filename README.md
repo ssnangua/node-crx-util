@@ -38,13 +38,13 @@ crx.parser.extract("./xxx.crx", "./xxx")
 
 ```bash
 # Download by webstore url
-crx-util -u=url [-o=destination]
+crx-util -u=url [-o=output]
 
 # Download by extension id and source
-crx-util -i=extensionId -s=source [-o=destination]
+crx-util -i=extensionId -s=source [-o=output]
 
 # Extract a local CRX file
-Usage: crx-util -e=crxPath [-o=destination]
+Usage: crx-util -e=crxPath [-o=output]
 ```
 
 ### Example:
@@ -66,7 +66,7 @@ crx-util -e="./xxx.crx" -o="./xxx"
 - `-i`, `--id`      - Extension id
 - `-s`, `--source`  - Extension source, `"chrome"` or `"edge"`
 - `-e`, `--extract` - Extract a local CRX file
-- `-o`, `--output`  - Destination, if it ends with `.crx`, it will be saved as a CRX file, otherwise it will be extracted to `${destination}/${extensionId}`. Default by `process.cwd()`.
+- `-o`, `--output`  - Output, if it ends with `.crx`, it will be saved as a CRX file, otherwise it will be extracted to `${output}/${extensionId}`. Default by `process.cwd()`.
 - `-h`, `--help`    - Display help for command
 
 ## API

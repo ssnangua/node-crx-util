@@ -97,7 +97,7 @@ Download url pattern.
 
 #### crx.downloader.parseURL(url): Object
 
-Extract a local CRX file.
+Parse Chrome/Edge extension url.
 
 - `url` string - Chrome/Edge extension url.
 
@@ -139,7 +139,7 @@ Checks whether the given path or Buffer contains a valid CRX file.
 
 #### crx.parser.getCrxVersion(crxPathOrBuffer): Number
 
-Get CRX file version.
+Get CRX version.
 
 - `crxPathOrBuffer` string | Buffer - CRX file path or buffer.
 

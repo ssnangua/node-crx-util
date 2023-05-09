@@ -34,7 +34,7 @@ if (args.includes("-h") || args.includes("--help")) {
     output: o["-o"] || o["--output"] || process.cwd(),
     crx: o["-e"] || o["--extract"],
   };
-  console.log(options);
+  // console.log(options);
   if (options.url) {
     crx.downloadByURL(options.url, options.output);
   } else if (options.id && options.source) {

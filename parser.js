@@ -21,7 +21,7 @@ function isCrx(crxPathOrBuffer) {
 }
 
 /**
- * Get CRX file version.
+ * Get CRX version.
  * @param {String | Buffer} crxPathOrBuffer
  * @return The version number (2 or 3)
  * @public

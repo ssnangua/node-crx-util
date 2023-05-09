@@ -35,7 +35,7 @@ function downloadById(extensionId, source, output = process.cwd()) {
   return downloader
     .downloadById(extensionId, source)
     .then((buffer) => {
-      if (/\.crx$/i.test(output)) {
+      if (saveAsCRX) {
         console.log("  saving...");
         fs.writeFileSync(output, buffer);
         console.log("  done!");
@@ -45,7 +45,8 @@ function downloadById(extensionId, source, output = process.cwd()) {
           parser.extract(buffer, output);
           console.log("  done!");
         } catch (err) {
-          console.error("  extract failed", err);
+          console.error("  extract failed");
+          console.error(err);
           return Promise.reject(err || "extract failed")
         }
       }

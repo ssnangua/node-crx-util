@@ -24,9 +24,12 @@ function downloadByURL(url, output = process.cwd()) {
  * @public
  */
 function downloadById(extensionId, source, output = process.cwd()) {
+  const downloadURL = downloader.getDownloadURL(extensionId, source);
+  const saveAsCRX = /\.crx$/i.test(output);
+  output = saveAsCRX ? path.resolve(output) : path.resolve(output, extensionId);
   console.log("[CRX Util]");
   console.log("  id: " + extensionId);
-  console.log("  from: " + downloader.getDownloadURL(extensionId, source));
+  console.log("  from: " + downloadURL);
   console.log("  to: " + output);
   console.log("  downloading...");
   return downloader
@@ -39,17 +42,18 @@ function downloadById(extensionId, source, output = process.cwd()) {
       } else {
         console.log("  extracting...");
         try {
-          parser.extract(buffer, path.resolve(output, extensionId));
+          parser.extract(buffer, output);
           console.log("  done!");
         } catch (err) {
-          console.error("  extract failed");
-          console.error(err);
+          console.error("  extract failed", err);
+          return Promise.reject(err || "extract failed")
         }
       }
+      return { result: true, extensionId, source, downloadURL, output };
     })
     .catch((error) => {
-      console.error("  unable to download the CRX file.");
-      console.error(error);
+      console.error("  " + error);
+      return { result: false, error, extensionId, source, downloadURL, output };
     });
 }
 

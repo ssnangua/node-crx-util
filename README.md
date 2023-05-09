@@ -14,7 +14,16 @@ npm install crx-util
 const crx = require("crx-util");
 
 // Download a CRX file from microsoft webstore
-crx.downloadByURL(`https://microsoftedge.microsoft.com/addons/detail/${extensionName}/${extensionId}`, "./xxx.crx");
+crx.downloadByURL(`https://microsoftedge.microsoft.com/addons/detail/${extensionName}/${extensionId}`, "./xxx.crx")
+  .then((res) => {
+    if (res.result) {
+      console.info("succeed!");
+    } else {
+      console.warn("Failed:", res.error);
+    }
+    // Other info
+    const { extensionId, source, downloadURL, output } = res;
+  });
 
 // Download by extension id and source
 crx.downloadById(`${extensionId}`, "edge", "./xxx.crx");
@@ -29,7 +38,7 @@ crx.downloadByURL(`https://chrome.google.com/webstore/detail/${extensionName}/${
 crx.downloadById(`${extensionId}`, "chrome", "./xxx.crx");
 
 // Extract a local CRX file
-crx.parser.extract("./xxx.crx", "./xxx")
+crx.parser.extract("./xxx.crx", "./xxx");
 ```
 
 ## CLI
@@ -62,12 +71,12 @@ crx-util -e="./xxx.crx" -o="./xxx"
 
 ### Arguments
 
-- `-u`, `--url`     - Chrome/Edge extension url
-- `-i`, `--id`      - Extension id
-- `-s`, `--source`  - Extension source, `"chrome"` or `"edge"`
+- `-u`, `--url` - Chrome/Edge extension url
+- `-i`, `--id` - Extension id
+- `-s`, `--source` - Extension source, `"chrome"` or `"edge"`
 - `-e`, `--extract` - Extract a local CRX file
-- `-o`, `--output`  - Output, if it ends with `.crx`, it will be saved as a CRX file, otherwise it will be extracted to `${output}/${extensionId}`. Default by `process.cwd()`.
-- `-h`, `--help`    - Display help for command
+- `-o`, `--output` - Output, if it ends with `.crx`, it will be saved as a CRX file, otherwise it will be extracted to `${output}/${extensionId}`. Default by `process.cwd()`.
+- `-h`, `--help` - Display help for command
 
 ## API
 
@@ -78,6 +87,15 @@ Download a CRX file from webstore.
 - `url` string - Chrome/Edge extension url
 - `output` string (optional) - If `output` ends with ".crx", it will be saved as a CRX file, otherwise it will be extracted to `${output}/${extensionId}`. Default by `process.cwd()`.
 
+Resolves with an object contains the following info:
+
+- `result` Boolean
+- `error` any
+- `extensionId` String
+- `source` "chrome" | "edge"
+- `downloadURL` String
+- `output` String
+
 ### crx.downloadById(extensionId, source, output?): Promise
 
 Download a CRX file by extension id and source.
@@ -85,6 +103,8 @@ Download a CRX file by extension id and source.
 - `extensionId` string - Extension id
 - `source` "chrome" | "edge" - Extension source
 - `output` string (optional) - If `output` ends with ".crx", it will be saved as a CRX file, otherwise it will be extracted to `${output}/${extensionId}`. Default by `process.cwd()`.
+
+Resolves with an object.
 
 ### crx.downloader
 

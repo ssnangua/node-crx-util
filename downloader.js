@@ -64,7 +64,7 @@ function downloadById(extensionId, source) {
   return new Promise((resolve, reject) => {
     request({ uri: url, encoding: null }, (error, response, body) => {
       if (!error && response.statusCode === 200) resolve(body);
-      else reject(error);
+      else reject(error || "unable to download the CRX file.");
     });
   });
 }

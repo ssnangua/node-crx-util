@@ -1,0 +1,38 @@
+{
+  "name": "crx-util",
+  "version": "0.0.1",
+  "description": "Download (and extract) Chrome/Edge extension (.crx).",
+  "main": "./index.js",
+  "bin": "./cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "crx",
+    "chrome",
+    "edge",
+    "extension",
+    "download",
+    "extract"
+  ],
+  "author": "ssnangua",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ssnangua/node-crx-util"
+  },
+  "files": [
+    "index.js",
+    "downloader.js",
+    "parser.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "request": "^2.88.2"
+  }
+}

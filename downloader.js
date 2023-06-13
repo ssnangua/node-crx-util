@@ -1,4 +1,4 @@
-const request = require("request");
+const { Buffer } = require("node:buffer");
 
 const URL_PATTERN = {
   chrome:
@@ -59,14 +59,13 @@ function downloadByURL(url) {
  * @return Resolves with CRX buffer
  * @public
  */
-function downloadById(extensionId, source) {
+async function downloadById(extensionId, source) {
   const url = getDownloadURL(extensionId, source);
-  return new Promise((resolve, reject) => {
-    request({ uri: url, encoding: null }, (error, response, body) => {
-      if (!error && response.statusCode === 200) resolve(body);
-      else reject(error || "unable to download the CRX file.");
-    });
-  });
+  const response = await fetch(url);
+  if (response.status !== 200) {
+    throw new Error('unable to download the CRX file.');
+  }
+  return Buffer.from(await response.arrayBuffer());
 }
 
 module.exports = {

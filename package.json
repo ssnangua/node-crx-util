@@ -32,7 +32,6 @@
     "LICENSE"
   ],
   "dependencies": {
-    "adm-zip": "^0.5.10",
-    "request": "^2.88.2"
+    "adm-zip": "^0.5.10"
   }
 }
